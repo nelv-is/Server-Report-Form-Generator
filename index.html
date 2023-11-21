@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server Report</title>
+
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #f4f4f4;
+margin: 20px;
+}
+
+h2 {
+color: #333;
+text-align: center;
+}
+
+form {
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+max-width: 600px;
+margin: 0 auto;
+}
+
+label {
+display: block;
+margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+width: 100%;
+padding: 8px;
+margin-bottom: 16px;
+box-sizing: border-box;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+select {
+width: calc(100% + 2px); 
+}
+
+h3 {
+color: #333;
+margin-top: 20px;
+text-align: center;
+}
+
+h4 {
+color: #333;
+text-align: center;
+}
+
+textarea {
+width: 100%;
+}
+
+button {
+background-color: #4caf50;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+#reportOutput {
+margin: 20px auto;
+padding: 20px;
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+max-width: 600px;
+}
+
+#copyButton {
+background-color: #008CBA;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+margin-top: 20px;
+}
+
+#copyButton:hover {
+background-color: #00688B;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Server Report Form Generator</h2>
+<h3>for ISCI & RS+ <i>by _nelv</i></h3>
+
+ <form id="serverReportForm">
+
+        <label for="username">Your Discord ID:</label>
+        <input type="text" id="username" required>
+
+        <label for="timezonea">Your Timezone:</label>
+<select id="timezone">
+<option value="GMT">GMT</option>
+<option value="AEST">AEST</option>
+<option value="EST">EST</option>
+
+</select>
+
+        <label for="serverNumber">Server Number:</label>
+        <input type="text" id="serverNumber" required>
+
+        <label for="etsMembersJoined">Number of ETS members when you joined the server:</label>
+        <input type="text" id="etsMembersJoined" required>
+
+        <label for="etsMembersLeft">Number of ETS members when you left the server:</label>
+        <input type="text" id="etsMembersLeft" required>
+
+        <label for="serverManagementDetails">What you did while you were managing the server:</label>
+        <textarea id="serverManagementDetails" rows="4" required></textarea>
+        
+        <label for="coe">CoE:</label>
+<select id="coeA">
+<option value="665679694087323688">Alesssiaa_x (GMT)</option>
+<option value="821131406557970452">BasicsBlue (AEST)</option>
+<option value="922225288849530951">ThatBreadCrumb (EST)</option>
+
+</select>
+
+        <label for="proof">Proof:</label>
+        <textarea id="proof" rows="4" required></textarea>
+        
+
+        <button type="button" onclick="generateReport()">GENERATE</button>
+    </form>
+
+
+</form>
+
+<div id="reportOutput"></div>
+
+<script>
+function generateReport() {
+    var username = document.getElementById("username").value;
+    var timezone = document.getElementById("timezone").value;
+    var serverNumber = document.getElementById("serverNumber").value;
+    var etsMembersJoined = document.getElementById("etsMembersJoined").value;
+    var etsMembersLeft = document.getElementById("etsMembersLeft").value;
+    var serverManagementDetails = document.getElementById("serverManagementDetails").value;
+    var coeA = document.getElementById("coeA").value;
+    var proof = document.getElementById("proof").value;
+
+    var reportText = "Type Event: Server report\n";
+    reportText += `Username: <@${username}>\n`;
+    reportText += `Timezone: ${timezone}\n`;
+    reportText += `Server Number: ${serverNumber}\n`;
+    reportText += `Number of ETS members when I joined the server: ${etsMembersJoined}\n`;
+    reportText += `Number of ETS members when I left the server: ${etsMembersLeft}\n`;
+    reportText += `What I did while I was managing the server: ${serverManagementDetails}\n`;
+    reportText += `CoE: <@${coeA}>\n`;
+    reportText += `Proof: ${proof}\n`;
+
+    document.getElementById("reportOutput").innerText = reportText;
+    createCopyButton();
+}
+</script>
+
+<script>
+function createCopyButton() {
+
+var copyButton = document.createElement("button");
+copyButton.id = "copyButton";
+copyButton.innerHTML = "COPY";
+copyButton.onclick = function () {
+copyToClipboard();
+};
+
+document.getElementById("reportOutput").appendChild(copyButton);
+}
+</script>
+
+<script>
+function copyToClipboard() {
+
+var reportText = document.getElementById("reportOutput").innerText;
+
+var reportWithoutCopyButton = reportText.replace("COPY", "");
+
+var tempTextArea = document.createElement("textarea");
+tempTextArea.value = reportWithoutCopyButton;
+
+document.body.appendChild(tempTextArea);
+
+tempTextArea.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(tempTextArea);
+
+alert("Report text (excluding 'COPY') copied to clipboard!");
+}
+
+</script>
+
+</body>
+
+</html>
